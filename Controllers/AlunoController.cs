@@ -1,10 +1,15 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SmartSchool.WebAPI.Models;
 
 namespace SmartSchool.WebAPI.Controllers
 {
+    //Endpoint => URL
+    //http://localhost:5000
+    //https://localhost:5001 // atual
+    //https://meuapp.azurewebsites.net/
     [ApiController]
     [Route("api/[controller]")]
     public class AlunoController : ControllerBase
@@ -19,40 +24,17 @@ namespace SmartSchool.WebAPI.Controllers
         public AlunoController() { }
 
         [HttpGet]
-        public IActionResult GetAction()
+        [Route("")]
+        public async Task<ActionResult<List<Aluno>>> Get()
         {
             // return Ok("Alunos: Marta, Paula, Lucas, Rafa"); //teste
             return Ok(Alunos);
         }
 
         //http://localhost:5000/api/aluno/8
-        // [HttpGet("{id:int}")]
-        // public IActionResult GetById(int id)
-        // {
-        //     // return Ok("Alunos: Marta, Paula, Lucas, Rafa"); //teste
-        //     var aluno = Alunos.FirstOrDefault(a => a.Id == id);
-
-        //     if(aluno == null) 
-        //     {
-        //         return BadRequest("O Aluno não foi encontrado");
-        //     }
-        //     return Ok(aluno);
-        // }
-
-        // [HttpGet("{nome}")]
-        // public IActionResult GetByName(string nome)
-        // {
-        //     var aluno = Alunos.FirstOrDefault(a => a.Nome.Contains(nome));
-
-        //     if(nome == null)
-        //     return BadRequest("O Aluno não foi encontrado");
-
-        //     return Ok(aluno);
-        // }
-        
-        //http://localhost:5000/api/aluno/byId?id=1
-        [HttpGet("byId/{id}")]
-        public IActionResult GetById(int id)
+        [HttpGet("{id:int}")]
+        [Route("")]
+        public async Task<ActionResult<Aluno>>  GetById(int id)
         {
             // return Ok("Alunos: Marta, Paula, Lucas, Rafa"); //teste
             var aluno = Alunos.FirstOrDefault(a => a.Id == id);
@@ -64,40 +46,70 @@ namespace SmartSchool.WebAPI.Controllers
             return Ok(aluno);
         }
 
-        //http://localhost:5000/api/aluno/byName?nome=aNome&sobrenome=aSobrenome
-        [HttpGet("ByName")]
-        public IActionResult GetByName(string nome, string sobrenome)
+        [HttpGet("{nome}")]
+        [Route("")]
+        public async Task<ActionResult<Aluno>> GetByName(string nome)
         {
-            var aluno = Alunos.FirstOrDefault(a => 
-                a.Nome.Contains(nome) && a.Sobrenome.Contains(sobrenome));
+            var aluno = Alunos.FirstOrDefault(a => a.Nome.Contains(nome));
 
             if(nome == null)
             return BadRequest("O Aluno não foi encontrado");
 
             return Ok(aluno);
         }
+        
+        //http://localhost:5000/api/aluno/byId?id=1
+        // [HttpGet("byId/{id}")]
+        // public async Task<ActionResult> GetById(int id)
+        // {
+        //     // return Ok("Alunos: Marta, Paula, Lucas, Rafa"); //teste
+        //     var aluno = Alunos.FirstOrDefault(a => a.Id == id);
+
+        //     if(aluno == null) 
+        //     {
+        //         return BadRequest("O Aluno não foi encontrado");
+        //     }
+        //     return Ok(aluno);
+        // }
+
+        //http://localhost:5000/api/aluno/byName?nome=aNome&sobrenome=aSobrenome
+        // [HttpGet("ByName")]
+        // public IActionResult GetByName(string nome, string sobrenome)
+        // {
+        //     var aluno = Alunos.FirstOrDefault(a => 
+        //         a.Nome.Contains(nome) && a.Sobrenome.Contains(sobrenome));
+
+        //     if(nome == null)
+        //     return BadRequest("O Aluno não foi encontrado");
+
+        //     return Ok(aluno);
+        // }
 
         [HttpPost]
-        public IActionResult Post(Aluno aluno)
+        [Route("")]
+        public async Task<ActionResult<Aluno>> Post(Aluno aluno)
         {
             return Ok(aluno);
         }
 
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, Aluno aluno)
+        [HttpPut("{id:int}")]
+        [Route("")]
+        public async Task<ActionResult<Aluno>> Put(int id, Aluno aluno)
         {
 
             return Ok(aluno);
         }
 
-        [HttpPatch("{id}")]
-        public IActionResult Patch(int id, Aluno aluno)
+        [HttpPatch("{id:int}")]
+        [Route("")]
+        public async Task<ActionResult<Aluno>> Patch(int id, Aluno aluno)
         {
             return Ok(aluno);
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        [HttpDelete("{id:int}")]
+        [Route("")]
+        public async Task<ActionResult<Aluno>> Delete(int id)
         {
             return Ok();
         }
