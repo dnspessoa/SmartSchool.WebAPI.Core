@@ -2,7 +2,7 @@
 
 namespace SmartSchool.WebAPI.Migrations
 {
-    public partial class inicial : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -10,11 +10,11 @@ namespace SmartSchool.WebAPI.Migrations
                 name: "Alunos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Nome = table.Column<string>(type: "TEXT", nullable: true),
-                    Sobrenome = table.Column<string>(type: "TEXT", nullable: true),
-                    Telefone = table.Column<string>(type: "TEXT", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Sobrenome = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Telefone = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -25,9 +25,9 @@ namespace SmartSchool.WebAPI.Migrations
                 name: "Professores",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Nome = table.Column<string>(type: "TEXT", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -38,10 +38,10 @@ namespace SmartSchool.WebAPI.Migrations
                 name: "Disciplinas",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Nome = table.Column<string>(type: "TEXT", nullable: true),
-                    ProfessorId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProfessorId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -58,8 +58,8 @@ namespace SmartSchool.WebAPI.Migrations
                 name: "AlunosDisciplinas",
                 columns: table => new
                 {
-                    AlunoId = table.Column<int>(type: "INTEGER", nullable: false),
-                    DisciplinaId = table.Column<int>(type: "INTEGER", nullable: false)
+                    AlunoId = table.Column<int>(type: "int", nullable: false),
+                    DisciplinaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -76,6 +76,39 @@ namespace SmartSchool.WebAPI.Migrations
                         principalTable: "Disciplinas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Alunos",
+                columns: new[] { "Id", "Nome", "Sobrenome", "Telefone" },
+                values: new object[,]
+                {
+                    { 1, "aNomeAluno", "aSobreNomeAluno", "123456789" },
+                    { 2, "bNomeAluno", "bSobreNomeAluno", "123456789" },
+                    { 3, "cNomeAluno", "cSobreNomeAluno", "123456789" },
+                    { 4, "dNomeAluno", "dSobreNomeAluno", "123456789" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Professores",
+                columns: new[] { "Id", "Nome" },
+                values: new object[,]
+                {
+                    { 1, "aProfessor" },
+                    { 2, "aProfessor" },
+                    { 3, "aProfessor" },
+                    { 4, "aProfessor" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Disciplinas",
+                columns: new[] { "Id", "Nome", "ProfessorId" },
+                values: new object[,]
+                {
+                    { 1, "Matemática", 1 },
+                    { 2, "Física", 2 },
+                    { 3, "Quimica", 3 },
+                    { 4, "Geometria", 4 }
                 });
 
             migrationBuilder.CreateIndex(

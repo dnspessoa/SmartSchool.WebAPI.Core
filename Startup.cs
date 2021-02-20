@@ -28,22 +28,30 @@ namespace SmartSchool.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //add context
-            services.AddControllers();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SmartSchool.WebAPI", Version = "v1" });
             });
 
-            //add 'Context'
+            //add conexão sqlLite
+            // services.AddDbContext<SmartContext>(
+            //     context => context.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))
+            // );
+
+            //add conexão sqlServe
             services.AddDbContext<SmartContext>(
-                context => context.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))
+                context => context.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
 
             //add injeção de dependencia, resolve a dependecia
             //'addScoped' Garante que so tenha um DataContext por requisição
-            services.AddScoped<SmartContext, SmartContext>();
+            //services.AddScoped<SmartContext, SmartContext>();
 
+            services.AddScoped<IRepository, Repository>();
+
+            //add context
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
