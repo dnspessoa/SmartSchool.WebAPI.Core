@@ -34,11 +34,11 @@ namespace SmartSchool.WebAPI.Controllers
 
         //Metodos
         //utilizando IRepository
-        [HttpGet("{GetIRepository}")]
-        public async Task<ActionResult<Professor>> GetIRepository(int id)
-        {
-            return Ok(_irepository.GetIRepositoryTeste());
-        }
+        // [HttpGet("{GetIRepository}")]
+        // public async Task<ActionResult<Professor>> GetIRepository(int id)
+        // {
+        //     return Ok(_irepository.GetIRepositoryTeste());
+        // }
 
         [HttpGet]
         [Route("")]
@@ -72,9 +72,13 @@ namespace SmartSchool.WebAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Professor>> Post(Professor professor)
         {
-            _smartContext.Add(professor);
-            _smartContext.SaveChanges();
-            return Ok(professor);
+             _irepository.Add(professor);
+            if (_irepository.SaveChanges())
+            {
+                return Ok(professor);
+            }
+
+            return BadRequest("Professor não cadastrado");
         }
 
         [HttpPut("{id:int}")]

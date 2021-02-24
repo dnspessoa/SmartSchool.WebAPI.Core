@@ -38,13 +38,13 @@ namespace SmartSchool.WebAPI.Controllers
 
         //Metodos
         //utilizando irepository
-        [HttpGet("GetIRepository")]
-        public async Task<ActionResult<List<Aluno>>> GetIRepository()
-        {
-            // return Ok("Alunos: Marta, Paula, Lucas, Rafa"); //teste
-            //return Ok(_irepository.GetIRepositoryTeste());
-            return Ok(_irepository.GetIRepositoryTeste());
-        }
+        // [HttpGet("GetIRepository")]
+        // public async Task<ActionResult<List<Aluno>>> GetIRepository()
+        // {
+        //     // return Ok("Alunos: Marta, Paula, Lucas, Rafa"); //teste
+        //     //return Ok(_irepository.GetIRepositoryTeste());
+        //     return Ok(_irepository.GetIRepositoryTeste());
+        // }
 
         [HttpGet]
         [Route("")]
@@ -97,9 +97,17 @@ namespace SmartSchool.WebAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Aluno>> Post(Aluno aluno)
         {
-            _smartContext.Add(aluno);
-            _smartContext.SaveChanges();
-            return Ok(aluno);
+            _irepository.Add(aluno);
+            if (_irepository.SaveChanges())
+            {
+                return Ok(aluno);
+            }
+
+            // _smartContext.Add(aluno);
+            // _smartContext.SaveChanges();
+            //return Ok(aluno);
+
+            return BadRequest("Aluno não cadastrado");
         }
 
         [HttpPut("{id:int}")]
@@ -110,9 +118,17 @@ namespace SmartSchool.WebAPI.Controllers
             if(alunoAux == null) 
             return BadRequest("Aluno não encontrado");
             
-            _smartContext.Update(aluno);
-            _smartContext.SaveChanges();
-            return Ok(aluno);
+            // _smartContext.Update(aluno);
+            // _smartContext.SaveChanges();
+            // return Ok(aluno);
+
+            _irepository.Update(aluno);
+            if (_irepository.SaveChanges())
+            {
+                return Ok(aluno);
+            }
+
+            return BadRequest("Aluno não cadastrado");
         }
 
         [HttpPatch("{id:int}")]
@@ -123,9 +139,17 @@ namespace SmartSchool.WebAPI.Controllers
             if(alunoAux == null) 
             return BadRequest("Aluno não encontrado");
 
-            _smartContext.Update(aluno);
-            _smartContext.SaveChanges();
-            return Ok(aluno);
+            // _smartContext.Update(aluno);
+            // _smartContext.SaveChanges();
+            // return Ok(aluno);
+
+            _irepository.Update(aluno);
+            if (_irepository.SaveChanges())
+            {
+                return Ok(aluno);
+            }
+            return BadRequest("Aluno não encontrado");
+
         }
 
         [HttpDelete("{id:int}")]
@@ -134,11 +158,18 @@ namespace SmartSchool.WebAPI.Controllers
             var aluno = _smartContext.Alunos
                 .FirstOrDefault(a => a.Id == id);
             if(aluno == null) 
-            return BadRequest("Aluno não encontrado");
+            return BadRequest("Aluno não removido");
             
-            _smartContext.Remove(aluno);
-            _smartContext.SaveChanges();
-            return Ok();
+            // _smartContext.Remove(aluno);
+            // _smartContext.SaveChanges();
+            // return Ok();
+
+            _irepository.Delete(aluno);
+            if (_irepository.SaveChanges())
+            {
+                return Ok(aluno);
+            }
+            return BadRequest("Aluno não removido");
         }
 
         //http://localhost:5000/api/aluno/byId?id=1
