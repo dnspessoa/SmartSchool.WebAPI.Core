@@ -49,7 +49,7 @@ namespace SmartSchool.WebAPI.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Professor>> GetId(int id)
+        public async Task<ActionResult<Professor>> ById(int id)
         {
             var professor = _smartContext.Professores.FirstOrDefault(x => x.Id == id);
             if (professor == null)
@@ -59,7 +59,7 @@ namespace SmartSchool.WebAPI.Controllers
         }
 
         [HttpGet("ByName")]
-        public async Task<ActionResult<Professor>> GetByName(string nome)
+        public async Task<ActionResult<Professor>> ByName(string nome)
         {
             var professor = _smartContext.Professores.FirstOrDefault(p => p.Nome.Contains(nome));
 
@@ -89,10 +89,13 @@ namespace SmartSchool.WebAPI.Controllers
             if(professor == null)
             return BadRequest("O Professor não foi encontrado");
 
-            _smartContext.Update(professor);
-            _smartContext.SaveChanges();
+            _irepository.Update(professor);
+            if (_irepository.SaveChanges())
+            {
+                return Ok(professor);
+            }
 
-            return Ok(professor);
+            return BadRequest("O Professor não foi encontrado");
         }
 
         [HttpPatch("{id:int}")]
@@ -103,24 +106,30 @@ namespace SmartSchool.WebAPI.Controllers
             if(professor == null)
             return BadRequest("O Professor não foi encontrado");
 
-            _smartContext.Update(professor);
-            _smartContext.SaveChanges();
+            _irepository.Update(professor);
+            if (_irepository.SaveChanges())
+            {
+                return Ok(professor);
+            }
 
-            return Ok(professor);
+            return BadRequest("O Professor não foi encontrado");
         }
         
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<Professor>> Delete(int id)
         {
             var professor = _smartContext.Professores
-                .FirstOrDefault(p => p.Id == id);
+                .AsNoTracking().FirstOrDefault(p => p.Id == id);
             if(professor == null)
             return BadRequest("O Professor não foi encontrado");
 
-            _smartContext.Remove(professor);
-            _smartContext.SaveChanges();
+            _irepository.Delete(professor);
+            if (_irepository.SaveChanges())
+            {
+                return Ok(professor);
+            }
 
-            return Ok();
+            return BadRequest("O Professor não foi encontrado");
         }
     }
 }

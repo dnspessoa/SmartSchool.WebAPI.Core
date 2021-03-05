@@ -56,7 +56,7 @@ namespace SmartSchool.WebAPI.Controllers
 
         //http://localhost:5000/api/aluno/8
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Aluno>> GetById(int id)
+        public async Task<ActionResult<Aluno>> ById(int id)
         {
             // return Ok("Alunos: Marta, Paula, Lucas, Rafa"); //teste
             var aluno = _smartContext.Alunos.FirstOrDefault(a => a.Id == id);
@@ -70,7 +70,7 @@ namespace SmartSchool.WebAPI.Controllers
 
         //localhost:5000/api/Aluno/ByName?nome=eNome
         [HttpGet("ByName")]
-        public async Task<ActionResult<Aluno>> GetByName(string nome)
+        public async Task<ActionResult<Aluno>> ByName(string nome)
         {
             var aluno = _smartContext.Alunos.FirstOrDefault(a => 
                 a.Nome.Contains(nome));
@@ -83,7 +83,7 @@ namespace SmartSchool.WebAPI.Controllers
 
         //localhost:5000/api/Aluno/s?nome=s&sobrenome=s
         [HttpGet("{ByNameSobrenome}")]
-        public async Task<ActionResult<Aluno>> GetByNameSobrenome(string nome, string sobrenome)
+        public async Task<ActionResult<Aluno>> ByNameSobrenome(string nome, string sobrenome)
         {
             var aluno = _smartContext.Alunos.FirstOrDefault(a => 
                 a.Nome.Contains(nome) && a.Sobrenome.Contains(sobrenome));
