@@ -15,11 +15,11 @@ namespace SmartSchool.WebAPI.Data
         //Alunos
         Aluno[] GetAllAlunos(bool asIncludeDisciplina = false);
         Aluno[] GetAllAlunosByDisciplinaId(int disciplinaId, bool asIncludeProfessor = false);
-        Aluno GetAllAlunoById(int alunoId, bool asIncludeDisciplina = false);
+        Aluno GetAlunoById(int alunoId, bool asIncludeDisciplina = false);
 
         //Professores
         Professor[] GetAllProfessores(bool asIncludeAlunos = false);
         Professor[] GetAllProfessoresByDisciplinaId(int disciplinaId, bool asIncludeDisciplina = false);
-        Professor GetAllProfessorById(int professorId, bool asIncludeDisciplina = false);
+        Professor GetProfessorById(int professorId, bool asIncludeDisciplina = false);
     }
 }

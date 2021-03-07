@@ -26,79 +26,85 @@ namespace SmartSchool.WebAPI.Controllers
         // };
 
         //Variáveis globais
-        private readonly SmartContext _smartContext;
-        private readonly IRepository _irepository;
+        // private readonly SmartContext _smartContext;
+        private readonly IRepository _repository;
 
         //Construtores
-        public AlunoController(SmartContext smartContext, IRepository irepository)
+        public AlunoController(IRepository repository)
         {
-            _irepository = irepository;
-            _smartContext = smartContext;
+            _repository = repository;
+            // _smartContext = smartContext;
         }
 
         //Metodos
-        //utilizando irepository
+        //utilizando repository
         // [HttpGet("GetIRepository")]
         // public async Task<ActionResult<List<Aluno>>> GetIRepository()
         // {
         //     // return Ok("Alunos: Marta, Paula, Lucas, Rafa"); //teste
-        //     //return Ok(_irepository.GetIRepositoryTeste());
-        //     return Ok(_irepository.GetIRepositoryTeste());
+        //     //return Ok(repository.GetIRepositoryTeste());
+        //     return Ok(repository.GetIRepositoryTeste());
         // }
 
         [HttpGet]
         [Route("")]
-        public async Task<ActionResult<List<Aluno>>> Get()
+        public async Task<ActionResult<List<Aluno>>> GetAllAlunos()
         {
+            var alunos = _repository.GetAllAlunos(true);
+            
             // return Ok("Alunos: Marta, Paula, Lucas, Rafa"); //teste
-            return Ok(_smartContext.Alunos);
+            //return Ok(_smartContext.Alunos);
+            return Ok(alunos);
         }
 
         //http://localhost:5000/api/aluno/8
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Aluno>> ById(int id)
+        public async Task<ActionResult<Aluno>> GetAlunoById(int id, bool asIncludeDisciplina)
         {
-            // return Ok("Alunos: Marta, Paula, Lucas, Rafa"); //teste
-            var aluno = _smartContext.Alunos.FirstOrDefault(a => a.Id == id);
+            // var aluno = _smartContext.Alunos.FirstOrDefault(a => a.Id == id);
+
+            var aluno = _repository.GetAlunoById(id, asIncludeDisciplina);
 
             if (aluno == null)
             {
                 return BadRequest("O Aluno não foi encontrado");
             }
+            
+            // return Ok("Alunos: Marta, Paula, Lucas, Rafa"); //teste
             return Ok(aluno);
         }
 
         //localhost:5000/api/Aluno/ByName?nome=eNome
-        [HttpGet("ByName")]
-        public async Task<ActionResult<Aluno>> ByName(string nome)
-        {
-            var aluno = _smartContext.Alunos.FirstOrDefault(a => 
-                a.Nome.Contains(nome));
+        // [HttpGet("ByName")]
+        // public async Task<ActionResult<Aluno>> ByName(string nome)
+        // {
+        //     var aluno = _smartContext.Alunos.FirstOrDefault(a => 
+        //         a.Nome.Contains(nome));
 
-            if (aluno == null)
-                return BadRequest("O Aluno não foi encontrado");
+        //     if (aluno == null)
+        //         return BadRequest("O Aluno não foi encontrado");
 
-            return Ok(aluno);
-        }
+        //     return Ok(aluno);
+        // }
 
         //localhost:5000/api/Aluno/s?nome=s&sobrenome=s
-        [HttpGet("{ByNameSobrenome}")]
-        public async Task<ActionResult<Aluno>> ByNameSobrenome(string nome, string sobrenome)
-        {
-            var aluno = _smartContext.Alunos.FirstOrDefault(a => 
-                a.Nome.Contains(nome) && a.Sobrenome.Contains(sobrenome));
+        // [HttpGet("{ByNameSobrenome}")]
+        // public async Task<ActionResult<Aluno>> AlunoGetByNameSobrenome(string nome, string sobrenome)
+        // {
+        //     var aluno = _smartContext.Alunos.FirstOrDefault(a => 
+        //         a.Nome.Contains(nome) && a.Sobrenome.Contains(sobrenome));
 
-            if (aluno == null)
-                return BadRequest("O Aluno não foi encontrado");
+        //     if (aluno == null)
+        //         return BadRequest("O Aluno não foi encontrado");
 
-            return Ok(aluno);
-        }
+        //     return Ok(aluno);
+        // }
 
         [HttpPost]
-        public async Task<ActionResult<Aluno>> Post(Aluno aluno)
+        public async Task<ActionResult<Aluno>> PostAluno(Aluno aluno)
         {
-            _irepository.Add(aluno);
-            if (_irepository.SaveChanges())
+            _repository.Add(aluno);
+            if (_repository.SaveChanges())
             {
                 return Ok(aluno);
             }
@@ -111,10 +117,11 @@ namespace SmartSchool.WebAPI.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<Aluno>> Put(int id, Aluno aluno)
+        public async Task<ActionResult<Aluno>> PutAluno(int id, Aluno aluno)
         {
-            var alunoAux = _smartContext.Alunos
-                .AsNoTracking().FirstOrDefault(a => a.Id == id);
+            //var alunoAux = _smartContext.Alunos.AsNoTracking().FirstOrDefault(a => a.Id == id);
+            var alunoAux = _repository.GetAlunoById(id);
+                
             if(alunoAux == null) 
             return BadRequest("Aluno não encontrado");
             
@@ -122,8 +129,8 @@ namespace SmartSchool.WebAPI.Controllers
             // _smartContext.SaveChanges();
             // return Ok(aluno);
 
-            _irepository.Update(aluno);
-            if (_irepository.SaveChanges())
+            _repository.Update(aluno);
+            if (_repository.SaveChanges())
             {
                 return Ok(aluno);
             }
@@ -132,10 +139,11 @@ namespace SmartSchool.WebAPI.Controllers
         }
 
         [HttpPatch("{id:int}")]
-        public async Task<ActionResult<Aluno>> Patch(int id, Aluno aluno)
+        public async Task<ActionResult<Aluno>> PatchAluno(int id, Aluno aluno)
         {
-            var alunoAux = _smartContext.Alunos
-                .AsNoTracking().FirstOrDefault(a => a.Id == id);
+            //var alunoAux = _smartContext.Alunos.AsNoTracking().FirstOrDefault(a => a.Id == id);
+            var alunoAux = _repository.GetAlunoById(id);
+                
             if(alunoAux == null) 
             return BadRequest("Aluno não encontrado");
 
@@ -143,8 +151,8 @@ namespace SmartSchool.WebAPI.Controllers
             // _smartContext.SaveChanges();
             // return Ok(aluno);
 
-            _irepository.Update(aluno);
-            if (_irepository.SaveChanges())
+            _repository.Update(aluno);
+            if (_repository.SaveChanges())
             {
                 return Ok(aluno);
             }
@@ -153,10 +161,11 @@ namespace SmartSchool.WebAPI.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult<Aluno>> Delete(int id)
+        public async Task<ActionResult<Aluno>> DeleteAluno(int id)
         {
-            var aluno = _smartContext.Alunos
-                .FirstOrDefault(a => a.Id == id);
+            //var aluno = _smartContext.Alunos.FirstOrDefault(a => a.Id == id);
+            var aluno = _repository.GetAlunoById(id);
+                
             if(aluno == null) 
             return BadRequest("Aluno não removido");
             
@@ -164,8 +173,8 @@ namespace SmartSchool.WebAPI.Controllers
             // _smartContext.SaveChanges();
             // return Ok();
 
-            _irepository.Delete(aluno);
-            if (_irepository.SaveChanges())
+            _repository.Delete(aluno);
+            if (_repository.SaveChanges())
             {
                 return Ok(aluno);
             }

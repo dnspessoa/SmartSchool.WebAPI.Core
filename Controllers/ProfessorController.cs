@@ -22,14 +22,13 @@ namespace SmartSchool.WebAPI.Controllers
         // };
 
         //Variaveis globais
-        private readonly SmartContext _smartContext;
-        private readonly IRepository _irepository;
+        // private readonly SmartContext _smartContext;
+        private readonly IRepository _repository;
 
         //Construtores
-        public ProfessorController(SmartContext smartContext, IRepository irepository) 
+        public ProfessorController(IRepository irepository) 
         { 
-                _smartContext = smartContext;
-                _irepository = irepository;
+                _repository = irepository;
         }
 
         //Metodos
@@ -42,38 +41,42 @@ namespace SmartSchool.WebAPI.Controllers
 
         [HttpGet]
         [Route("")]
-        public async Task<ActionResult<List<Professor>>> Get()
+        public async Task<ActionResult<List<Professor>>> GetAllProfessores()
         {
-            var professores = _smartContext.Professores; 
+            // var professores = _smartContext.Professores; 
+            var professores = _repository.GetAllProfessores(false);
+
             return Ok(professores);
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Professor>> ById(int id)
+        public async Task<ActionResult<Professor>> GetProfessorById(int id)
         {
-            var professor = _smartContext.Professores.FirstOrDefault(x => x.Id == id);
+            // var professor = _smartContext.Professores.FirstOrDefault(x => x.Id == id);
+            var professor = _repository.GetProfessorById(id, false);
+
             if (professor == null)
             return BadRequest("O Professor não foi encontrado");
 
             return Ok(professor);
         }
 
-        [HttpGet("ByName")]
-        public async Task<ActionResult<Professor>> ByName(string nome)
-        {
-            var professor = _smartContext.Professores.FirstOrDefault(p => p.Nome.Contains(nome));
+        // [HttpGet("ByName")]
+        // public async Task<ActionResult<Professor>> GetProfessorByName(string nome)
+        // {
+        //     var professor = _smartContext.Professores.FirstOrDefault(p => p.Nome.Contains(nome));
 
-            if (professor == null)
-                return BadRequest("O Professor não foi encontrado");
+        //     if (professor == null)
+        //         return BadRequest("O Professor não foi encontrado");
 
-            return Ok(professor);
-        }
+        //     return Ok(professor);
+        // }
 
         [HttpPost]
-        public async Task<ActionResult<Professor>> Post(Professor professor)
+        public async Task<ActionResult<Professor>> PostProfessor(Professor professor)
         {
-             _irepository.Add(professor);
-            if (_irepository.SaveChanges())
+             _repository.Add(professor);
+            if (_repository.SaveChanges())
             {
                 return Ok(professor);
             }
@@ -82,15 +85,16 @@ namespace SmartSchool.WebAPI.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<Professor>> Put(int id, Professor professor)
+        public async Task<ActionResult<Professor>> PutProfessor(int id, Professor professor)
         {
-            var professorAux = _smartContext.Professores
-                .AsNoTracking().FirstOrDefault(p => p.Id == id);
+            // var professorAux = _smartContext.Professores.AsNoTracking().FirstOrDefault(p => p.Id == id);
+            var professorAux = _repository.GetProfessorById(id);
+                
             if(professor == null)
             return BadRequest("O Professor não foi encontrado");
 
-            _irepository.Update(professor);
-            if (_irepository.SaveChanges())
+            _repository.Update(professor);
+            if (_repository.SaveChanges())
             {
                 return Ok(professor);
             }
@@ -99,15 +103,16 @@ namespace SmartSchool.WebAPI.Controllers
         }
 
         [HttpPatch("{id:int}")]
-        public async Task<ActionResult<Professor>> Patch(int id, Professor professor)
+        public async Task<ActionResult<Professor>> PatchProfessor(int id, Professor professor)
         {
-            var professorAux = _smartContext.Professores
-                .AsNoTracking().FirstOrDefault(p => p.Id == id);
+            // var professorAux = _smartContext.Professores.AsNoTracking().FirstOrDefault(p => p.Id == id);
+            var professorAux = _repository.GetProfessorById(id);
+                
             if(professor == null)
             return BadRequest("O Professor não foi encontrado");
 
-            _irepository.Update(professor);
-            if (_irepository.SaveChanges())
+            _repository.Update(professor);
+            if (_repository.SaveChanges())
             {
                 return Ok(professor);
             }
@@ -116,15 +121,16 @@ namespace SmartSchool.WebAPI.Controllers
         }
         
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult<Professor>> Delete(int id)
+        public async Task<ActionResult<Professor>> DeleteProfessor(int id)
         {
-            var professor = _smartContext.Professores
-                .AsNoTracking().FirstOrDefault(p => p.Id == id);
+            //var professor = _smartContext.Professores.AsNoTracking().FirstOrDefault(p => p.Id == id);
+            var professor = _repository.GetProfessorById(id);
+
             if(professor == null)
             return BadRequest("O Professor não foi encontrado");
 
-            _irepository.Delete(professor);
-            if (_irepository.SaveChanges())
+            _repository.Delete(professor);
+            if (_repository.SaveChanges())
             {
                 return Ok(professor);
             }
