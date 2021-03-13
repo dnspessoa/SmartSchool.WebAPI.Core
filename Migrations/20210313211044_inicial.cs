@@ -2,7 +2,7 @@
 
 namespace SmartSchool.WebAPI.Migrations
 {
-    public partial class init : Migration
+    public partial class inicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -84,9 +84,12 @@ namespace SmartSchool.WebAPI.Migrations
                 values: new object[,]
                 {
                     { 1, "aNomeAluno", "aSobreNomeAluno", "123456789" },
-                    { 2, "bNomeAluno", "bSobreNomeAluno", "123456789" },
-                    { 3, "cNomeAluno", "cSobreNomeAluno", "123456789" },
-                    { 4, "dNomeAluno", "dSobreNomeAluno", "123456789" }
+                    { 2, "bNomeAluno", "bSobreNomeAluno", "223456789" },
+                    { 3, "cNomeAluno", "cSobreNomeAluno", "323456789" },
+                    { 4, "dNomeAluno", "dSobreNomeAluno", "423456789" },
+                    { 5, "eNomeAluno", "eSobreNomeAluno", "523456789" },
+                    { 6, "fNomeAluno", "fSobreNomeAluno", "623456789" },
+                    { 7, "gNomeAluno", "gSobreNomeAluno", "723456789" }
                 });
 
             migrationBuilder.InsertData(
@@ -95,9 +98,10 @@ namespace SmartSchool.WebAPI.Migrations
                 values: new object[,]
                 {
                     { 1, "aProfessor" },
-                    { 2, "aProfessor" },
-                    { 3, "aProfessor" },
-                    { 4, "aProfessor" }
+                    { 2, "bProfessor" },
+                    { 3, "cProfessor" },
+                    { 4, "dProfessor" },
+                    { 5, "eProfessor" }
                 });
 
             migrationBuilder.InsertData(
@@ -106,9 +110,45 @@ namespace SmartSchool.WebAPI.Migrations
                 values: new object[,]
                 {
                     { 1, "Matemática", 1 },
+                    { 5, "eDiciplina", 1 },
                     { 2, "Física", 2 },
+                    { 6, "fDiciplina", 2 },
                     { 3, "Quimica", 3 },
-                    { 4, "Geometria", 4 }
+                    { 7, "gDiciplina", 3 },
+                    { 9, "iDiciplina", 3 },
+                    { 4, "Geometria", 4 },
+                    { 8, "hDiciplina", 4 },
+                    { 10, "mDiciplina", 4 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AlunosDisciplinas",
+                columns: new[] { "AlunoId", "DisciplinaId" },
+                values: new object[,]
+                {
+                    { 2, 1 },
+                    { 5, 4 },
+                    { 4, 4 },
+                    { 1, 4 },
+                    { 7, 3 },
+                    { 6, 3 },
+                    { 3, 3 },
+                    { 7, 2 },
+                    { 6, 2 },
+                    { 3, 2 },
+                    { 6, 4 },
+                    { 2, 2 },
+                    { 7, 5 },
+                    { 5, 5 },
+                    { 4, 5 },
+                    { 2, 5 },
+                    { 1, 5 },
+                    { 7, 1 },
+                    { 6, 1 },
+                    { 4, 1 },
+                    { 3, 1 },
+                    { 1, 2 },
+                    { 7, 4 }
                 });
 
             migrationBuilder.CreateIndex(

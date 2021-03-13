@@ -51,21 +51,42 @@ namespace SmartSchool.WebAPI.Migrations
                             Id = 2,
                             Nome = "bNomeAluno",
                             Sobrenome = "bSobreNomeAluno",
-                            Telefone = "123456789"
+                            Telefone = "223456789"
                         },
                         new
                         {
                             Id = 3,
                             Nome = "cNomeAluno",
                             Sobrenome = "cSobreNomeAluno",
-                            Telefone = "123456789"
+                            Telefone = "323456789"
                         },
                         new
                         {
                             Id = 4,
                             Nome = "dNomeAluno",
                             Sobrenome = "dSobreNomeAluno",
-                            Telefone = "123456789"
+                            Telefone = "423456789"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Nome = "eNomeAluno",
+                            Sobrenome = "eSobreNomeAluno",
+                            Telefone = "523456789"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Nome = "fNomeAluno",
+                            Sobrenome = "fSobreNomeAluno",
+                            Telefone = "623456789"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Nome = "gNomeAluno",
+                            Sobrenome = "gSobreNomeAluno",
+                            Telefone = "723456789"
                         });
                 });
 
@@ -82,6 +103,123 @@ namespace SmartSchool.WebAPI.Migrations
                     b.HasIndex("DisciplinaId");
 
                     b.ToTable("AlunosDisciplinas");
+
+                    b.HasData(
+                        new
+                        {
+                            AlunoId = 1,
+                            DisciplinaId = 2
+                        },
+                        new
+                        {
+                            AlunoId = 1,
+                            DisciplinaId = 4
+                        },
+                        new
+                        {
+                            AlunoId = 1,
+                            DisciplinaId = 5
+                        },
+                        new
+                        {
+                            AlunoId = 2,
+                            DisciplinaId = 1
+                        },
+                        new
+                        {
+                            AlunoId = 2,
+                            DisciplinaId = 2
+                        },
+                        new
+                        {
+                            AlunoId = 2,
+                            DisciplinaId = 5
+                        },
+                        new
+                        {
+                            AlunoId = 3,
+                            DisciplinaId = 1
+                        },
+                        new
+                        {
+                            AlunoId = 3,
+                            DisciplinaId = 2
+                        },
+                        new
+                        {
+                            AlunoId = 3,
+                            DisciplinaId = 3
+                        },
+                        new
+                        {
+                            AlunoId = 4,
+                            DisciplinaId = 1
+                        },
+                        new
+                        {
+                            AlunoId = 4,
+                            DisciplinaId = 4
+                        },
+                        new
+                        {
+                            AlunoId = 4,
+                            DisciplinaId = 5
+                        },
+                        new
+                        {
+                            AlunoId = 5,
+                            DisciplinaId = 4
+                        },
+                        new
+                        {
+                            AlunoId = 5,
+                            DisciplinaId = 5
+                        },
+                        new
+                        {
+                            AlunoId = 6,
+                            DisciplinaId = 1
+                        },
+                        new
+                        {
+                            AlunoId = 6,
+                            DisciplinaId = 2
+                        },
+                        new
+                        {
+                            AlunoId = 6,
+                            DisciplinaId = 3
+                        },
+                        new
+                        {
+                            AlunoId = 6,
+                            DisciplinaId = 4
+                        },
+                        new
+                        {
+                            AlunoId = 7,
+                            DisciplinaId = 1
+                        },
+                        new
+                        {
+                            AlunoId = 7,
+                            DisciplinaId = 2
+                        },
+                        new
+                        {
+                            AlunoId = 7,
+                            DisciplinaId = 3
+                        },
+                        new
+                        {
+                            AlunoId = 7,
+                            DisciplinaId = 4
+                        },
+                        new
+                        {
+                            AlunoId = 7,
+                            DisciplinaId = 5
+                        });
                 });
 
             modelBuilder.Entity("SmartSchool.WebAPI.Models.Disciplina", b =>
@@ -127,6 +265,42 @@ namespace SmartSchool.WebAPI.Migrations
                             Id = 4,
                             Nome = "Geometria",
                             ProfessorId = 4
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Nome = "eDiciplina",
+                            ProfessorId = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Nome = "fDiciplina",
+                            ProfessorId = 2
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Nome = "gDiciplina",
+                            ProfessorId = 3
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Nome = "hDiciplina",
+                            ProfessorId = 4
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Nome = "iDiciplina",
+                            ProfessorId = 3
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Nome = "mDiciplina",
+                            ProfessorId = 4
                         });
                 });
 
@@ -153,17 +327,22 @@ namespace SmartSchool.WebAPI.Migrations
                         new
                         {
                             Id = 2,
-                            Nome = "aProfessor"
+                            Nome = "bProfessor"
                         },
                         new
                         {
                             Id = 3,
-                            Nome = "aProfessor"
+                            Nome = "cProfessor"
                         },
                         new
                         {
                             Id = 4,
-                            Nome = "aProfessor"
+                            Nome = "dProfessor"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Nome = "eProfessor"
                         });
                 });
 
