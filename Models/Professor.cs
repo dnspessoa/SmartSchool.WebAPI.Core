@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace SmartSchool.WebAPI.Models
@@ -7,13 +8,24 @@ namespace SmartSchool.WebAPI.Models
         public Professor()
         {
         }
-        public Professor(int id, string nome)
+
+        public Professor(int id, int registro, string nome, string sobrenome)
         {
-            this.Id = id;
-            this.Nome = nome;
+            Id = id;
+            Registro = registro;
+            Nome = nome;
+            Sobrenome = sobrenome;
         }
+
         public int Id { get; set; }
+        public int Registro { get; set; }
         public string Nome { get; set; }
+        public string Sobrenome { get; set; }
+        public string Telefone { get; set; }
+        public DateTime DataInicio { get; set; } = DateTime.Now;
+        public DateTime? DataFim { get; set; } = null;
+        public bool asAtivo { get; set; } = true;
+        //Disciplina
         public IEnumerable<Disciplina> Disciplinas { get; set; }
     }
 }
