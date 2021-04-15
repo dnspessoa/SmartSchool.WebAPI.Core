@@ -91,8 +91,12 @@ namespace SmartSchool.WebAPI.Controllers
                 return BadRequest("O Aluno não foi encontrado");
             }
             
+            var alunoDto = _mapper.Map<AlunoDto>(aluno);
+
             // return Ok("Alunos: Marta, Paula, Lucas, Rafa"); //teste
-            return Ok(aluno);
+            //return Ok(aluno);
+
+            return Ok(alunoDto);
         }
 
         //localhost:5000/api/Aluno/ByName?nome=eNome
@@ -122,12 +126,20 @@ namespace SmartSchool.WebAPI.Controllers
         // }
 
         [HttpPost]
-        public async Task<ActionResult<Aluno>> PostAluno(Aluno aluno)
+        public async Task<ActionResult<Aluno>> PostAluno(AlunoDto alunoDto)
         {
+            //Pega alunoDto e transforma em aluno
+            var aluno = _mapper.Map<Aluno>(alunoDto);
+
             _repository.Add(aluno);
+            // if (_repository.SaveChanges())
+            // {
+            //     return Ok(aluno);
+            // }
+
             if (_repository.SaveChanges())
             {
-                return Ok(aluno);
+                return Created($"/api/aluno/{alunoDto.Id}", _mapper.Map<AlunoDto>(aluno));
             }
 
             // _smartContext.Add(aluno);
@@ -138,13 +150,15 @@ namespace SmartSchool.WebAPI.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<Aluno>> PutAluno(int id, Aluno aluno)
+        public async Task<ActionResult<Aluno>> PutAluno(int id, AlunoDto alunoDto)
         {
             //var alunoAux = _smartContext.Alunos.AsNoTracking().FirstOrDefault(a => a.Id == id);
-            var alunoAux = _repository.GetAlunoById(id);
+            var aluno = _repository.GetAlunoById(id);
                 
-            if(alunoAux == null) 
+            if(aluno == null) 
             return BadRequest("Aluno não encontrado");
+
+            _mapper.Map(alunoDto, aluno);
             
             // _smartContext.Update(aluno);
             // _smartContext.SaveChanges();
@@ -153,7 +167,8 @@ namespace SmartSchool.WebAPI.Controllers
             _repository.Update(aluno);
             if (_repository.SaveChanges())
             {
-                return Ok(aluno);
+                //return Ok(aluno);
+                return Created($"/api/aluno/{alunoDto.Id}", _mapper.Map<AlunoDto>(aluno));
             }
 
             return BadRequest("Aluno não cadastrado");
