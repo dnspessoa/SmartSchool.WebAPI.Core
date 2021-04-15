@@ -44,16 +44,23 @@ namespace SmartSchool.WebAPI
                 context => context.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
 
-            //add injeção de dependencia, resolve a dependecia
-            //'addScoped' Garante que so tenha um DataContext por requisição
-            //services.AddScoped<SmartContext, SmartContext>();
-
-            services.AddScoped<IRepository, Repository>();
+            
 
             //Ignora referncias circulares
             services.AddControllers()
                     .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = 
                     Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+            //add injeção de dependencia, resolve a dependecia
+            //'addScoped' Garante que so tenha um DataContext por requisição
+            //services.AddScoped<SmartContext, SmartContext>();
+
+            //add serviço autoMapper
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            
+            services.AddScoped<IRepository, Repository>();        
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

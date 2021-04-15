@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SmartSchool.WebAPI.Data;
+using SmartSchool.WebAPI.Dtos;
 using SmartSchool.WebAPI.Models;
 
 namespace SmartSchool.WebAPI.Controllers
@@ -28,11 +30,13 @@ namespace SmartSchool.WebAPI.Controllers
         //Variáveis globais
         // private readonly SmartContext _smartContext;
         private readonly IRepository _repository;
+        private readonly IMapper _mapper;
 
         //Construtores
-        public AlunoController(IRepository repository)
+        public AlunoController(IRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
             // _smartContext = smartContext;
         }
 
@@ -54,7 +58,24 @@ namespace SmartSchool.WebAPI.Controllers
             
             // return Ok("Alunos: Marta, Paula, Lucas, Rafa"); //teste
             //return Ok(_smartContext.Alunos);
-            return Ok(alunos);
+
+            //Usando Dto DataTransObject
+            // var alunosDtos = new List<AlunoDto>();
+            // foreach (var aluno in alunos)
+            // {
+            //     alunosDtos.Add(new AlunoDto(){
+            //         Id = aluno.Id,
+            //         Matricula = aluno.Matricula,
+            //         Nome = $"{aluno.Nome} {aluno.Sobrenome}",
+            //         Telefone = aluno.Telefone,
+            //         DataNasc = aluno.DataNasc,
+            //         DataInicio = aluno.DataInicio, 
+            //         asAtivo = aluno.asAtivo
+            //     });
+            // }
+            // return Ok(alunosDtos);
+
+            return Ok(_mapper.Map<IEnumerable<AlunoDto>>(alunos));
         }
 
         //http://localhost:5000/api/aluno/8
