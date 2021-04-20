@@ -99,6 +99,13 @@ namespace SmartSchool.WebAPI.Controllers
             return Ok(alunoDto);
         }
 
+        //teste recuperar um obj aluno
+        [HttpGet("getRegister")]
+        public IActionResult GetAction()
+        {
+            return Ok(new AlunoRegistrarDto());
+        }
+
         //localhost:5000/api/Aluno/ByName?nome=eNome
         // [HttpGet("ByName")]
         // public async Task<ActionResult<Aluno>> ByName(string nome)
@@ -126,7 +133,7 @@ namespace SmartSchool.WebAPI.Controllers
         // }
 
         [HttpPost]
-        public async Task<ActionResult<Aluno>> PostAluno(AlunoDto alunoDto)
+        public async Task<ActionResult<Aluno>> PostAluno(AlunoRegistrarDto alunoDto)
         {
             //Pega alunoDto e transforma em aluno
             var aluno = _mapper.Map<Aluno>(alunoDto);
@@ -150,7 +157,7 @@ namespace SmartSchool.WebAPI.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<Aluno>> PutAluno(int id, AlunoDto alunoDto)
+        public async Task<ActionResult<Aluno>> PutAluno(int id, AlunoRegistrarDto alunoDto)
         {
             //var alunoAux = _smartContext.Alunos.AsNoTracking().FirstOrDefault(a => a.Id == id);
             var aluno = _repository.GetAlunoById(id);
@@ -175,13 +182,15 @@ namespace SmartSchool.WebAPI.Controllers
         }
 
         [HttpPatch("{id:int}")]
-        public async Task<ActionResult<Aluno>> PatchAluno(int id, Aluno aluno)
+        public async Task<ActionResult<Aluno>> PatchAluno(int id, AlunoRegistrarDto alunoDto)
         {
             //var alunoAux = _smartContext.Alunos.AsNoTracking().FirstOrDefault(a => a.Id == id);
-            var alunoAux = _repository.GetAlunoById(id);
+            var aluno = _repository.GetAlunoById(id);
                 
-            if(alunoAux == null) 
+            if(aluno == null) 
             return BadRequest("Aluno não encontrado");
+
+            _mapper.Map(alunoDto, aluno);
 
             // _smartContext.Update(aluno);
             // _smartContext.SaveChanges();
@@ -190,7 +199,8 @@ namespace SmartSchool.WebAPI.Controllers
             _repository.Update(aluno);
             if (_repository.SaveChanges())
             {
-                return Ok(aluno);
+                //return Ok(aluno);
+                return Created($"/api/aluno/{alunoDto.Id}", _mapper.Map<AlunoDto>(aluno));
             }
             return BadRequest("Aluno não encontrado");
 

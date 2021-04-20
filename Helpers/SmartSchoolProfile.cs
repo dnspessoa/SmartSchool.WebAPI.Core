@@ -16,8 +16,13 @@ namespace SmartSchool.WebAPI.Helpers
             .ForMember(
                 destino => destino.Idade,
                 opt => opt.MapFrom(src => src.DataNasc.GetCurrentAge())
-            )
-            ;
+            );
+
+            //mapeamento para add post
+            CreateMap<AlunoDto, Aluno>();
+
+            CreateMap<Aluno, AlunoRegistrarDto>().ReverseMap();
+            //CreateMap<AlunoRegistrarDto, Aluno>();
         }
     }
 }

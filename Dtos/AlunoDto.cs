@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using SmartSchool.WebAPI.Models;
 
 namespace SmartSchool.WebAPI.Dtos
 {
