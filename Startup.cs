@@ -44,8 +44,6 @@ namespace SmartSchool.WebAPI
                 context => context.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
 
-            
-
             //Ignora referncias circulares
             services.AddControllers()
                     .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = 

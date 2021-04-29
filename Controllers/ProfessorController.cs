@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SmartSchool.WebAPI.Data;
+using SmartSchool.WebAPI.Dtos;
 using SmartSchool.WebAPI.Models;
 
 namespace SmartSchool.WebAPI.Controllers
@@ -14,7 +16,7 @@ namespace SmartSchool.WebAPI.Controllers
     {
         //Seta banco
         // public List<Professor> Professores = new List<Professor>(){
-            
+
         //     new Professor(){Id = 1, Nome = "aProfessor" },
         //     new Professor(){Id = 2, Nome = "bProfessor" },
         //     new Professor(){Id = 3, Nome = "cProfessor" },
@@ -24,11 +26,13 @@ namespace SmartSchool.WebAPI.Controllers
         //Variaveis globais
         // private readonly SmartContext _smartContext;
         private readonly IRepository _repository;
+        private readonly IMapper _mapper;
 
         //Construtores
-        public ProfessorController(IRepository irepository) 
-        { 
-                _repository = irepository;
+        public ProfessorController(IRepository irepository, IMapper mapper)
+        {
+            _mapper = mapper;
+            _repository = irepository;
         }
 
         //Metodos
@@ -46,7 +50,9 @@ namespace SmartSchool.WebAPI.Controllers
             // var professores = _smartContext.Professores; 
             var professores = _repository.GetAllProfessores(false);
 
-            return Ok(professores);
+            //return Ok(professores);
+
+            return Ok(_mapper.Map<IEnumerable<ProfessorDto>>(professores));
         }
 
         [HttpGet("{id:int}")]
@@ -56,9 +62,13 @@ namespace SmartSchool.WebAPI.Controllers
             var professor = _repository.GetProfessorById(id, false);
 
             if (professor == null)
-            return BadRequest("O Professor não foi encontrado");
+                return BadRequest("O Professor não foi encontrado");
 
-            return Ok(professor);
+            var professorDto = _mapper.Map<ProfessorDto>(professor);
+
+            //return Ok(professor);
+
+            return Ok(professorDto);
         }
 
         // [HttpGet("ByName")]
@@ -73,61 +83,70 @@ namespace SmartSchool.WebAPI.Controllers
         // }
 
         [HttpPost]
-        public async Task<ActionResult<Professor>> PostProfessor(Professor professor)
+        public async Task<ActionResult<Professor>> PostProfessor(ProfessorDto professorDto)
         {
-             _repository.Add(professor);
+            var professor = _mapper.Map<Professor>(professorDto);
+
+            _repository.Add(professor);
             if (_repository.SaveChanges())
             {
-                return Ok(professor);
+                //return Ok(professor);
+                return Created($"/api/professor/{professor.Id}", _mapper.Map<ProfessorDto>(professor));
             }
 
             return BadRequest("Professor não cadastrado");
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<Professor>> PutProfessor(int id, Professor professor)
+        public async Task<ActionResult<Professor>> PutProfessor(int id, ProfessorDto professorDto)
         {
             // var professorAux = _smartContext.Professores.AsNoTracking().FirstOrDefault(p => p.Id == id);
-            var professorAux = _repository.GetProfessorById(id);
-                
-            if(professor == null)
-            return BadRequest("O Professor não foi encontrado");
+            var professor = _repository.GetProfessorById(id);
+
+            if (professor == null)
+                return BadRequest("O Professor não foi encontrado");
+
+            _mapper.Map(professorDto, professor);
 
             _repository.Update(professor);
             if (_repository.SaveChanges())
             {
-                return Ok(professor);
+                //return Ok(professor);
+                return Created($"/api/professor/{professor.Id}", _mapper.Map<ProfessorDto>(professor));
             }
 
             return BadRequest("O Professor não foi encontrado");
         }
 
         [HttpPatch("{id:int}")]
-        public async Task<ActionResult<Professor>> PatchProfessor(int id, Professor professor)
+        public async Task<ActionResult<Professor>> PatchProfessor(int id, ProfessorDto professorDto)
         {
             // var professorAux = _smartContext.Professores.AsNoTracking().FirstOrDefault(p => p.Id == id);
-            var professorAux = _repository.GetProfessorById(id);
-                
-            if(professor == null)
-            return BadRequest("O Professor não foi encontrado");
+            var professor = _repository.GetProfessorById(id);
+
+            if (professor == null)
+                return BadRequest("O Professor não foi encontrado");
+
+            _mapper.Map(professorDto, professor);
 
             _repository.Update(professor);
             if (_repository.SaveChanges())
             {
-                return Ok(professor);
+                //return Ok(professor);
+                return Created($"/api/professor/{professor.Id}", _mapper.Map<ProfessorDto>(professor));
             }
 
             return BadRequest("O Professor não foi encontrado");
         }
-        
+
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<Professor>> DeleteProfessor(int id)
         {
             //var professor = _smartContext.Professores.AsNoTracking().FirstOrDefault(p => p.Id == id);
             var professor = _repository.GetProfessorById(id);
 
-            if(professor == null)
-            return BadRequest("O Professor não foi encontrado");
+            if (professor == null)
+                return BadRequest("O Professor não foi encontrado");
 
             _repository.Delete(professor);
             if (_repository.SaveChanges())
