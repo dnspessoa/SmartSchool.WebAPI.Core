@@ -83,7 +83,7 @@ namespace SmartSchool.WebAPI.Controllers
         // }
 
         [HttpPost]
-        public async Task<ActionResult<Professor>> PostProfessor(ProfessorDto professorDto)
+        public async Task<ActionResult<Professor>> PostProfessor(ProfessorRegistrarDto professorDto)
         {
             var professor = _mapper.Map<Professor>(professorDto);
 
@@ -98,7 +98,7 @@ namespace SmartSchool.WebAPI.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<Professor>> PutProfessor(int id, ProfessorDto professorDto)
+        public async Task<ActionResult<Professor>> PutProfessor(int id, ProfessorRegistrarDto professorDto)
         {
             // var professorAux = _smartContext.Professores.AsNoTracking().FirstOrDefault(p => p.Id == id);
             var professor = _repository.GetProfessorById(id);
@@ -119,7 +119,7 @@ namespace SmartSchool.WebAPI.Controllers
         }
 
         [HttpPatch("{id:int}")]
-        public async Task<ActionResult<Professor>> PatchProfessor(int id, ProfessorDto professorDto)
+        public async Task<ActionResult<Professor>> PatchProfessor(int id, ProfessorRegistrarDto professorDto)
         {
             // var professorAux = _smartContext.Professores.AsNoTracking().FirstOrDefault(p => p.Id == id);
             var professor = _repository.GetProfessorById(id);
