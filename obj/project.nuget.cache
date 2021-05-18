@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "yIQFeC+0IuOhpsOv4zA16wavV45ofFVJzmgDLc0I39ZU7NkMQUiGMKdnA3t4XYvYVUrdFnpP9wQ7h3t+SjY9kQ==",
+  "dgSpecHash": "5pmOlzxIHB6vLG80pU5bvQiuPSVGw2SYv1hOKXJZlWNym7vXsJ/VNF96pgtBV7EOrHLu6DQ5pnJ6Ag4rnk/UKQ==",
   "success": true,
   "projectFilePath": "C:\\dev-core\\SmartSchool_WebAPI_Core\\SmartSchool.WebAPI\\SmartSchool.WebAPI.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,8 @@
     "C:\\Users\\dnspessoa\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\dnspessoa\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\5.0.3\\microsoft.aspnetcore.jsonpatch.5.0.3.nupkg.sha512",
     "C:\\Users\\dnspessoa\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\5.0.3\\microsoft.aspnetcore.mvc.newtonsoftjson.5.0.3.nupkg.sha512",
+    "C:\\Users\\dnspessoa\\.nuget\\packages\\microsoft.aspnetcore.mvc.versioning\\5.0.0\\microsoft.aspnetcore.mvc.versioning.5.0.0.nupkg.sha512",
+    "C:\\Users\\dnspessoa\\.nuget\\packages\\microsoft.aspnetcore.mvc.versioning.apiexplorer\\5.0.0\\microsoft.aspnetcore.mvc.versioning.apiexplorer.5.0.0.nupkg.sha512",
     "C:\\Users\\dnspessoa\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\dnspessoa\\.nuget\\packages\\microsoft.data.sqlclient\\2.0.1\\microsoft.data.sqlclient.2.0.1.nupkg.sha512",
     "C:\\Users\\dnspessoa\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.0.1\\microsoft.data.sqlclient.sni.runtime.2.0.1.nupkg.sha512",

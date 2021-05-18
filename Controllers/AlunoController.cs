@@ -15,7 +15,8 @@ namespace SmartSchool.WebAPI.Controllers
     //https://localhost:5001 // atual
     //https://meuapp.azurewebsites.net/
     [ApiController]
-    [Route("api/[controller]")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class AlunoController : ControllerBase
     {
         //Seta banco
