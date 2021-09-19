@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SmartSchool.WebAPI.Data;
 using SmartSchool.WebAPI.Dtos;
+using SmartSchool.WebAPI.Helpers;
 using SmartSchool.WebAPI.Models;
 
 namespace SmartSchool.WebAPI.Controllers
@@ -15,8 +16,10 @@ namespace SmartSchool.WebAPI.Controllers
     //https://localhost:5001 // atual
     //https://meuapp.azurewebsites.net/
     [ApiController]
-    [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/[controller]")]
+    [Route("api/[controller]")]
+    //Version
+    // [ApiVersion("1.0")]
+    // [Route("api/v{version:apiVersion}/[controller]")]
     public class AlunoController : ControllerBase
     {
         //Seta banco
@@ -51,11 +54,24 @@ namespace SmartSchool.WebAPI.Controllers
         //     return Ok(repository.GetIRepositoryTeste());
         // }
 
+        // [HttpGet]
+        // [Route("")]
+        // public ActionResult<List<Aluno>> GetAllAlunos()
+        // {
+        //     var alunos = _repository.GetAllAlunos(true);
+            
+        //     return Ok(_mapper.Map<IEnumerable<AlunoDto>>(alunos));
+        // }
+
         [HttpGet]
         [Route("")]
-        public async Task<ActionResult<List<Aluno>>> GetAllAlunos()
+        public async Task<ActionResult<List<Aluno>>> GetAllAlunosAsync(
+            [FromQuery]
+            PageParams pageParams)
         {
-            var alunos = _repository.GetAllAlunos(true);
+            // var alunos = await _repository.GetAllAlunosAsync(true);
+
+            var alunos = await _repository.GetAllAlunosAsync(pageParams, true);
             
             // return Ok("Alunos: Marta, Paula, Lucas, Rafa"); //teste
             //return Ok(_smartContext.Alunos);

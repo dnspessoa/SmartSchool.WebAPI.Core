@@ -53,17 +53,17 @@ namespace SmartSchool.WebAPI
             services.AddScoped<IRepository, Repository>();      
 
             //Versionamento API
-            services.AddVersionedApiExplorer(opt => 
-            {
-                opt.GroupNameFormat = "'v'VVV";
-                opt.SubstituteApiVersionInUrl = true;
-            })
-            .AddApiVersioning(opt => 
-            {
-                opt.AssumeDefaultVersionWhenUnspecified = true;
-                opt.DefaultApiVersion = new ApiVersion(1, 0);
-                opt.ReportApiVersions = true;
-            });
+            // services.AddVersionedApiExplorer(opt => 
+            // {
+            //     opt.GroupNameFormat = "'v'VVV";
+            //     opt.SubstituteApiVersionInUrl = true;
+            // })
+            // .AddApiVersioning(opt => 
+            // {
+            //     opt.AssumeDefaultVersionWhenUnspecified = true;
+            //     opt.DefaultApiVersion = new ApiVersion(1, 0);
+            //     opt.ReportApiVersions = true;
+            // });
 
             services.AddSwaggerGen(c =>
             {
