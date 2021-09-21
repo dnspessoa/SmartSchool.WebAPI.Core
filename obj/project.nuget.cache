@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "+MdOYhiUvCVt4G/RQj1ECDp6zwyV9wH4W4hSBT/mjCunuq4Axpff/Fcs+Zh0BIiLqthbBuwLWA0vnZaBbXdBpw==",
+  "dgSpecHash": "QOVc4PMon9gYCxihFqZD2Dffv4lx/UkUlwTZVkTJlKVVhX4wlfslD1FLekB5Bcgv3fgUeQKB/RM/lA8M7eLmMQ==",
   "success": true,
   "projectFilePath": "C:\\dev-core\\SmartSchool_WebAPI_Core\\SmartSchool.WebAPI\\SmartSchool.WebAPI.csproj",
   "expectedPackageFiles": [
@@ -121,7 +121,7 @@
     "C:\\Users\\dnspessoa\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\dnspessoa\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Users\\dnspessoa\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
-    "C:\\Users\\dnspessoa\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.8\\microsoft.netcore.app.host.win-x64.5.0.8.nupkg.sha512"
+    "C:\\Users\\dnspessoa\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.9\\microsoft.netcore.app.host.win-x64.5.0.9.nupkg.sha512"
   ],
   "logs": []
 }

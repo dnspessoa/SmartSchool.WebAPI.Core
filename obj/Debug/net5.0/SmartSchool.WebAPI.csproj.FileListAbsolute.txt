@@ -171,4 +171,4 @@ C:\dev-core\SmartSchool_WebAPI_Core\SmartSchool.WebAPI\bin\Debug\net5.0\AutoMapp
 C:\dev-core\SmartSchool_WebAPI_Core\SmartSchool.WebAPI\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.Versioning.dll
 C:\dev-core\SmartSchool_WebAPI_Core\SmartSchool.WebAPI\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer.dll
 C:\dev-core\SmartSchool_WebAPI_Core\SmartSchool.WebAPI\obj\Debug\net5.0\SmartSchool.WebAPI.csproj.AssemblyReference.cache
-C:\dev-core\SmartSchool_WebAPI_Core\SmartSchool.WebAPI\obj\Debug\net5.0\refint\SmartSchool.WebAPI.dll
+C:\dev-core\SmartSchool_WebAPI_Core\SmartSchool.WebAPI\bin\Debug\net5.0\ref\SmartSchool.WebAPI.dll

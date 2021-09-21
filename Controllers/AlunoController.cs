@@ -72,6 +72,12 @@ namespace SmartSchool.WebAPI.Controllers
             // var alunos = await _repository.GetAllAlunosAsync(true);
 
             var alunos = await _repository.GetAllAlunosAsync(pageParams, true);
+
+            var alunosResult = _mapper.Map<IEnumerable<AlunoDto>>(alunos);
+
+            Response.AddPagination(alunos.CurrentPage, alunos.PageSize, alunos.TotalCount, alunos.TotalPages);
+
+            return Ok(alunosResult);
             
             // return Ok("Alunos: Marta, Paula, Lucas, Rafa"); //teste
             //return Ok(_smartContext.Alunos);
@@ -92,7 +98,7 @@ namespace SmartSchool.WebAPI.Controllers
             // }
             // return Ok(alunosDtos);
 
-            return Ok(_mapper.Map<IEnumerable<AlunoDto>>(alunos));
+            //return Ok(_mapper.Map<IEnumerable<AlunoDto>>(alunos));
         }
 
         //http://localhost:5000/api/aluno/8
